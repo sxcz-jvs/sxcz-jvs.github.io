@@ -1,84 +1,171 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>🍓 FrutiCine</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🍓 FrutiCine</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: white;
-    }
+<style>
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#0f0f0f;
+  color:white;
+}
 
-    header {
-      text-align: center;
-      padding: 60px 20px;
-      background: linear-gradient(45deg, #ff4d4d, #ff9900);
-    }
+header {
+  padding:60px 20px;
+  text-align:center;
+  background:linear-gradient(45deg,#ff4d4d,#ff9900);
+}
 
-    h1 {
-      font-size: 2.5em;
-      margin: 0;
-    }
+h1 {margin:0;font-size:2.5em;}
 
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      background: black;
-      padding: 12px 25px;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-    }
+.search {
+  margin:20px auto;
+  text-align:center;
+}
 
-    .container {
-      padding: 30px;
-    }
+.search input {
+  padding:10px;
+  width:250px;
+  border-radius:8px;
+  border:none;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
-    }
+.container {
+  padding:20px;
+}
 
-    .card {
-      background: #1a1a1a;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-    }
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
+}
 
-    a {
-      color: white;
-      text-decoration: none;
-    }
-  </style>
+.card {
+  background:#1a1a1a;
+  border-radius:10px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.card:hover {
+  transform:scale(1.05);
+}
+
+.card img {
+  width:100%;
+  height:120px;
+  object-fit:cover;
+}
+
+.card p {
+  padding:10px;
+  margin:0;
+}
+
+.modal {
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.8);
+  justify-content:center;
+  align-items:center;
+}
+
+.modal-content {
+  background:black;
+  padding:10px;
+  border-radius:10px;
+  max-width:90%;
+}
+
+.close {
+  float:right;
+  cursor:pointer;
+  font-size:20px;
+}
+
+</style>
 </head>
 
 <body>
 
 <header>
   <h1>🍓 FrutiCine</h1>
-  <p>Las mejores frutinovelas virales</p>
-  <a class="btn" href="https://tiktok.com" target="_blank">Ver ahora</a>
+  <p>Frutinovelas virales 🔥</p>
 </header>
 
+<div class="search">
+  <input type="text" id="search" placeholder="Buscar...">
+</div>
+
 <div class="container">
-  <div class="grid">
+  <div class="grid" id="grid"></div>
+</div>
 
-    <div class="card">
-      <a href="https://tiktok.com" target="_blank">🎬 Episodio 1</a>
-    </div>
-
-    <div class="card">
-      <a href="https://tiktok.com" target="_blank">🎬 Episodio 2</a>
-    </div>
-
-    <div class="card">
-      <a href="https://tiktok.com" target="_blank">🎬 Episodio 3</a>
-    </div>
-
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrar()">✖</span>
+    <div id="video"></div>
   </div>
+</div>
+
+<script>
+const data = [
+  {
+    titulo:"Episodio 1",
+    img:"https://picsum.photos/300/200?1",
+    video:"https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    titulo:"Episodio 2",
+    img:"https://picsum.photos/300/200?2",
+    video:"https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    titulo:"Episodio 3",
+    img:"https://picsum.photos/300/200?3",
+    video:"https://www.youtube.com/embed/dQw4w9WgXcQ"
+  }
+];
+
+const grid = document.getElementById("grid");
+
+function render(lista){
+  grid.innerHTML="";
+  lista.forEach(item=>{
+    grid.innerHTML+=`
+      <div class="card" onclick="abrir('${item.video}')">
+        <img src="${item.img}">
+        <p>${item.titulo}</p>
+      </div>
+    `;
+  });
+}
+
+function abrir(video){
+  document.getElementById("modal").style.display="flex";
+  document.getElementById("video").innerHTML=
+    `<iframe width="560" height="315" src="${video}" frameborder="0" allowfullscreen></iframe>`;
+}
+
+function cerrar(){
+  document.getElementById("modal").style.display="none";
+  document.getElementById("video").innerHTML="";
+}
+
+document.getElementById("search").addEventListener("input",(e)=>{
+  const texto = e.target.value.toLowerCase();
+  const filtrado = data.filter(d=>d.titulo.toLowerCase().includes(texto));
+  render(filtrado);
+});
+
+render(data);
+</script>
+
+</body>
+</html>
