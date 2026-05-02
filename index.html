@@ -1,0 +1,80 @@
+index.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>FrutiCine 🍓</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
+      color: white;
+    }
+
+    header {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(45deg, #ff4d4d, #ff9900);
+    }
+
+    h1 {
+      font-size: 3em;
+      margin: 0;
+    }
+
+    p {
+      opacity: 0.9;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      background: black;
+      padding: 15px 30px;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #222;
+    }
+
+    .videos {
+      padding: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 15px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🍓 FrutiCine</h1>
+  <p>Las mejores frutinovelas virales</p>
+  <a class="btn" href="#">Ver contenido</a>
+</header>
+
+<section class="videos">
+  <div class="card">🎬 Video 1</div>
+  <div class="card">🎬 Video 2</div>
+  <div class="card">🎬 Video 3</div>
+</section>
+
+</body>
+</html>
